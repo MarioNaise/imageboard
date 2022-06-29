@@ -2,9 +2,37 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>My Imageboard</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <h1>My Imageboard</h1>
+
+    <h2>Latest Images:</h2>
+
+    <!-- this container is for our vue instance -->
+    <div id="main">
+        <!-- <h2>Hi, {{name}}! Vue is so awesome!</h2> 
+        <h2>10 * 8 = {{10*8}}</h2>
+        <h2>Name is => {{name.toUpperCase()}}</h2>
+        <h3 v-if="visible">Yeah you can see me!! 👀</h3>
+        <h3 v-else>'visible' is falsey if you can see this!</h3> -->
+
+        <!-- <ul v-if="images.length">
+           <li v-for="city in cities" v-bind:key="city.id" @click="myFirstFunction(city.name)">
+            :key is the short form
+                {{city.name}} is in {{city.country}}
+            </li>
+        </ul> -->
+        <div class="images" v-for="image in images">
+            <img v-bind:key=image.id v-bind:src=image.url alt="image">
+            <p>{{image.title}}</p>
+        </div>
+        
+
+    </div>
+
+
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
 </html>
