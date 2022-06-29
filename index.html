@@ -24,7 +24,7 @@
                 {{city.name}} is in {{city.country}}
             </li>
         </ul> -->
-        <div class="images" v-for="image in images">
+        <div class="images" v-if="images.length" v-for="image in images">
             <img v-bind:key=image.id v-bind:src=image.url alt="image">
             <p>{{image.title}}</p>
         </div>
