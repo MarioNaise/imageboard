@@ -6,12 +6,23 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>My Imageboard</h1>
+    <div id="main">
+        <h1>I ❤️ memedumps</h1>
+
+        <div id="form">
+            <form class="uploadForm" method="post" action="/upload" enctype="multipart/form-data"
+            @submit.prevent="handleSubmit">
+                <input name="title" type="text" placeholder="Title">
+                <input name="user" type="text" placeholder="User">
+                <input class="uploadImage" name="image" type="file" accept="image/*">
+                <button>Submit</button>
+            </form>
+        </div>
 
     <h2>Latest Images:</h2>
 
     <!-- this container is for our vue instance -->
-    <div id="main">
+    
         <!-- <h2>Hi, {{name}}! Vue is so awesome!</h2> 
         <h2>10 * 8 = {{10*8}}</h2>
         <h2>Name is => {{name.toUpperCase()}}</h2>
@@ -25,7 +36,7 @@
             </li>
         </ul> -->
         <div class="images" v-if="images.length" v-for="image in images">
-            <img v-bind:key=image.id v-bind:src=image.url alt="image">
+            <img :key=image.id :src=image.url alt="image">
             <p>{{image.title}}</p>
         </div>
         

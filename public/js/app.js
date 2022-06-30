@@ -3,8 +3,8 @@ import * as Vue from "./vue.js";
 Vue.createApp({
     data() {
         return {
-            name: "Cayenne",
-            visible: true,
+            // name: "Cayenne",
+            // visible: true,
             images: [],
         };
     },
@@ -35,5 +35,22 @@ Vue.createApp({
         //         city
         //     );
         // },
+        handleSubmit(e) {
+            // e.preventDefault();
+            console.log("handle Submit");
+            fetch("/upload", {
+                method: "POST",
+                body: new FormData(e.target),
+            })
+                .then((result) => {
+                    return result.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((err) => {
+                    console.log("err in handleSubmit", err);
+                });
+        },
     },
 }).mount("#main");
