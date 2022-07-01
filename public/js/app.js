@@ -1,4 +1,6 @@
 import * as Vue from "./vue.js";
+// import firstComponent from "./first-component.js";
+// importing our components from our files requires us to use the file extension!!!
 
 Vue.createApp({
     data() {
@@ -6,9 +8,19 @@ Vue.createApp({
             // name: "Cayenne",
             // visible: true,
             images: [],
+            moods: [
+                { id: 1, emoji: "😊" },
+                { id: 2, emoji: "😌" },
+                { id: 3, emoji: "🤗" },
+            ],
+            moodSelected: null,
         };
     },
     // data ends here
+
+    components: {
+        // "first-component": firstComponent,
+    },
 
     mounted() {
         // this is the location for us to ask if there are
@@ -21,9 +33,8 @@ Vue.createApp({
         fetch("/images")
             .then((resp) => resp.json())
             .then((data) => {
-                // console.log("response from /cities: ", data);
+                // console.log("response from /images: ", data);
                 this.images = data;
-                // console.log(data);
             });
     },
 
@@ -43,14 +54,24 @@ Vue.createApp({
                 body: new FormData(e.target),
             })
                 .then((result) => {
+                    // console.log("result app.js", result);
                     return result.json();
                 })
                 .then((data) => {
-                    console.log(data);
+                    console.log("data app.js", data);
+                    this.images.unshift(data.newImage);
+                    // console.log(this.images);
                 })
                 .catch((err) => {
                     console.log("err in handleSubmit", err);
                 });
         },
+        // selectMood(id) {
+        //     console.log("id clicked on: ", id);
+        //     this.moodSelected = id;
+        // },
+        // closeFirstComponent() {
+        //     console.log("the component would like have you made disappear");
+        // },
     },
 }).mount("#main");

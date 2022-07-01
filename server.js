@@ -3,11 +3,16 @@ const app = express();
 const db = require("./db");
 const multer = require("multer");
 const uidSafe = require("uid-safe");
+const s3 = require("./s3");
+const path = require("path");
 
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 app.use(express.static("./public"));
+
+app.use("/images", express.static("./uploads"));
+// app.use("/images", express.static(path.resolve(__dirname, "uploads")));
 
 app.use(express.json());
 
@@ -35,7 +40,6 @@ app.get("*", (req, res) => {
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
-
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, "uploads");
@@ -46,8 +50,8 @@ const storage = multer.diskStorage({
         // -pick up the filename extenstion and save it too
         const randomFileName = uidSafe(24).then((randomString) => {
             // keep original file extension
-            console.log("file: ", file);
-            callback(null, `${randomString}.jpg`);
+            // console.log("file: ", file);
+            callback(null, randomString + path.extname(file.originalname));
         });
     },
 });
@@ -59,16 +63,38 @@ const uploader = multer({
     },
 });
 
-app.post("/upload", uploader.single("image"), (req, res) => {
+app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     console.log("UPLOAD");
-    console.log("req.body: ", req.body);
+    let newImage;
+    // console.log("req.file in server.js: ", req.file);
+    db.uploadImage(
+        "https://s3.amazonaws.com/spicedling/" + req.file.filename,
+        /////////////////////////////////////////////////////////////////
+        req.body.user,
+        req.body.title,
+        req.body.description
+    )
+        .then((result) => {
+            console.log("result server.js ", result.rows[0]);
+            newImage = result.rows[0];
+            res.json({
+                newImage,
+            });
+        })
+        .catch((err) => {
+            console.log("err in uploadImage", err);
+        });
 
-    if (!req.body.title) {
-        res.json({ error: "Missing field title!" });
-        return;
-    }
+    // if (!req.body.title) {
+    //     res.json({ error: "Missing field title!" });
+    //     return;
+    // }
 
-    res.json({ success: true });
+    // res.json({ success: true });
+
+    // res.json({
+    //     tempAnswer: true,
+    // });
 });
 
 /////////////////////////////////////////////////////////////////

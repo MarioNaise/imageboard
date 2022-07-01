@@ -7,13 +7,18 @@
 </head>
 <body>
     <div id="main">
-        <h1>I ❤️ memedumps</h1>
+        <!-- <first-component v-if="moodSelected" passing-prop="🧁" v-bind:selected-mood="moodSelected" @close="closeFirstComponent"></first-component> -->
+        <!-- <first-component></first-component>
+        <first-component></first-component> -->
+        <!-- <h3 v-for="mood in moods" @click="selectMood(mood.id)">{{mood.id}} | {{mood.emoji}}</h3> -->
+        <h1>I 🖤 memedumps</h1>
 
-        <div id="form">
+        <div id="formContainer">
             <form class="uploadForm" method="post" action="/upload" enctype="multipart/form-data"
             @submit.prevent="handleSubmit">
                 <input name="title" type="text" placeholder="Title">
                 <input name="user" type="text" placeholder="User">
+                <input name="description" type="text" placeholder="Description">
                 <input class="uploadImage" name="image" type="file" accept="image/*">
                 <button>Submit</button>
             </form>
@@ -35,11 +40,12 @@
                 {{city.name}} is in {{city.country}}
             </li>
         </ul> -->
-        <div class="images" v-if="images.length" v-for="image in images">
-            <img :key=image.id :src=image.url alt="image">
-            <p>{{image.title}}</p>
+        <div id="flexImages">
+            <div class="images" v-if="images.length" v-for="image in images">
+                <img :key="image.id" :src="image.url" alt="image">
+                <p>{{image.title}}</p>
+            </div>
         </div>
-        
 
     </div>
 
