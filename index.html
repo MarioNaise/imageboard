@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>My Imageboard</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
     <div id="main">
@@ -16,15 +17,18 @@
         <div id="formContainer">
             <form class="uploadForm" method="post" action="/upload" enctype="multipart/form-data"
             @submit.prevent="handleSubmit">
-                <input name="title" type="text" placeholder="Title">
-                <input name="user" type="text" placeholder="User">
-                <input name="description" type="text" placeholder="Description">
-                <input class="uploadImage" name="image" type="file" accept="image/*">
-                <button>Submit</button>
+                <input name="title" type="text" placeholder="Title" required>
+                <input name="user" type="text" placeholder="User" required>
+                <input name="description" type="text" placeholder="Description" required>
+                <input class="chooseFile" id="image" name="image" type="file" accept="image/*">
+                <label class="chooseFileLabel" for="image">Choose a file</label>
+                <button id="submitButton">Submit</button>
             </form>
         </div>
 
     <h2>Latest Images:</h2>
+
+    <image-component v-if="imageId" v-bind:image-prop="imageId" @close="closeImageComponent"></image-component>
 
     <!-- this container is for our vue instance -->
     
@@ -41,7 +45,8 @@
             </li>
         </ul> -->
         <div id="flexImages">
-            <div class="images" v-if="images.length" v-for="image in images">
+            <div class="images" v-if="images.length" v-for="image in images"
+            @click="showImage(image.id)">
                 <img :key="image.id" :src="image.url" alt="image">
                 <p>{{image.title}}</p>
             </div>

@@ -1,6 +1,7 @@
 import * as Vue from "./vue.js";
 // import firstComponent from "./first-component.js";
 // importing our components from our files requires us to use the file extension!!!
+import imageComponent from "./image-component.js";
 
 Vue.createApp({
     data() {
@@ -8,18 +9,18 @@ Vue.createApp({
             // name: "Cayenne",
             // visible: true,
             images: [],
-            moods: [
-                { id: 1, emoji: "😊" },
-                { id: 2, emoji: "😌" },
-                { id: 3, emoji: "🤗" },
-            ],
-            moodSelected: null,
+            imageId: null,
+            // moods: [
+            //     { id: 1, emoji: "😊" },
+            //     { id: 2, emoji: "😌" },
+            //     { id: 3, emoji: "🤗" },
+            // ],
+            // moodSelected: null,
         };
     },
-    // data ends here
-
     components: {
         // "first-component": firstComponent,
+        "image-component": imageComponent,
     },
 
     mounted() {
@@ -28,12 +29,12 @@ Vue.createApp({
 
         // console.log("my vue app has mounted!");
         // console.log("this: ", this);
-        // console.log("this.cities: ", this.cities);
+        // console.log("this.images: ", this.images);
 
         fetch("/images")
             .then((resp) => resp.json())
             .then((data) => {
-                // console.log("response from /images: ", data);
+                // console.log("response from /images in app.js: ", data);
                 this.images = data;
             });
     },
@@ -48,7 +49,7 @@ Vue.createApp({
         // },
         handleSubmit(e) {
             // e.preventDefault();
-            console.log("handle Submit");
+            // console.log("handle Submit");
             fetch("/upload", {
                 method: "POST",
                 body: new FormData(e.target),
@@ -73,5 +74,12 @@ Vue.createApp({
         // closeFirstComponent() {
         //     console.log("the component would like have you made disappear");
         // },
+        showImage(id) {
+            // console.log(id);
+            this.imageId = id;
+        },
+        closeImageComponent() {
+            this.imageId = null;
+        },
     },
 }).mount("#main");

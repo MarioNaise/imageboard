@@ -20,3 +20,11 @@ module.exports.uploadImage = (url, username, title, description) => {
     const param = [url, username, title, description];
     return db.query(q, param);
 };
+
+module.exports.getSingleImage = (id) => {
+    return db.query(
+        `SELECT * FROM images
+        WHERE id = $1`,
+        [id]
+    );
+};

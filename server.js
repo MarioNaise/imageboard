@@ -33,6 +33,16 @@ app.get("/images", (req, res) => {
         });
 });
 
+app.get("/images/:imageId", (req, res) => {
+    db.getSingleImage(req.params.imageId)
+        .then((result) => {
+            res.json(result.rows[0]);
+        })
+        .catch((err) => {
+            console.log("err in getSingleImage: ", err);
+        });
+});
+
 app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 });
@@ -69,7 +79,6 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     // console.log("req.file in server.js: ", req.file);
     db.uploadImage(
         "https://s3.amazonaws.com/spicedling/" + req.file.filename,
-        /////////////////////////////////////////////////////////////////
         req.body.user,
         req.body.title,
         req.body.description
