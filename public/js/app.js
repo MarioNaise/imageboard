@@ -78,7 +78,7 @@ Vue.createApp({
             // console.log(id);
             this.imageId = id;
         },
-        closeImageComponent() {
+        closeImage() {
             this.imageId = null;
         },
     },
