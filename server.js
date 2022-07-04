@@ -43,6 +43,37 @@ app.get("/images/:imageId", (req, res) => {
         });
 });
 
+app.get("/loadImages/:id", (req, res) => {
+    db.loadImages(req.params.id)
+        .then((result) => {
+            // console.log(result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("err in loadImages: ", err);
+        });
+});
+
+app.get("/lowestId", (req, res) => {
+    db.lowestId()
+        .then((result) => {
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("err in loadImages: ", err);
+        });
+});
+
+app.get("/comments/:id", (req, res) => {
+    db.getComments(req.params.id)
+        .then((result) => {
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("err in getComments: ", err);
+        });
+});
+
 app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 });
@@ -84,7 +115,7 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
         req.body.description
     )
         .then((result) => {
-            console.log("result server.js ", result.rows[0]);
+            // console.log("result server.js ", result.rows[0]);
             newImage = result.rows[0];
             res.json({
                 newImage,
@@ -104,6 +135,19 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     // res.json({
     //     tempAnswer: true,
     // });
+});
+
+app.post("/insertComment", (req, res) => {
+    db.insertComment(req.body.image_id, req.body.username, req.body.comment)
+        .then((result) => {
+            newComment = result.rows[0];
+            res.json({
+                newComment,
+            });
+        })
+        .catch((err) => {
+            console.log("err in insertComment", err);
+        });
 });
 
 /////////////////////////////////////////////////////////////////

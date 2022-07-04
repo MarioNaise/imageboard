@@ -1,8 +1,14 @@
+import commentComponent from "./comment-component.js";
+
 const imageComponent = {
     data() {
         return {
             currentImage: {},
+            comments: [],
         };
+    },
+    components: {
+        "comment-component": commentComponent,
     },
     props: ["imageProp"],
     mounted() {
@@ -32,8 +38,8 @@ const imageComponent = {
                         <img :src="this.currentImage.url" alt="currentImage">
                         <h2>{{this.currentImage.title}}</h2>
                         <p>{{this.currentImage.description}}</p>
-
-                        <p id="time">Uploaded by {{this.currentImage.username}} on {{this.currentImage.created_at}}</p>
+                        <p class="time">Uploaded by {{this.currentImage.username}} on {{this.currentImage.created_at}}</p>
+                        <comment-component :image-prop="imageProp"></comment-component>
                     </div>
                 </div>`,
 };

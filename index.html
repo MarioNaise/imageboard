@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <title>My Imageboard</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <div id="main">
@@ -12,7 +15,7 @@
         <!-- <first-component></first-component>
         <first-component></first-component> -->
         <!-- <h3 v-for="mood in moods" @click="selectMood(mood.id)">{{mood.id}} | {{mood.emoji}}</h3> -->
-        <h1>I 🖤 memedumps</h1>
+        <h1>I 💕 memedumps</h1>
 
         <div id="formContainer">
             <form class="uploadForm" method="post" action="/upload" enctype="multipart/form-data"
@@ -21,8 +24,8 @@
                 <input name="user" type="text" placeholder="User" required>
                 <input name="description" type="text" placeholder="Description" required>
                 <input class="chooseFile" id="image" name="image" type="file" accept="image/*">
-                <label class="chooseFileLabel" for="image">Choose a file</label>
-                <button id="submitButton">Submit</button>
+                <!-- <label class="chooseFileLabel" for="image">Choose a file</label> -->
+                <button id="submitButton">Upload</button>
             </form>
         </div>
 
@@ -51,6 +54,8 @@
                 <p>{{image.title}}</p>
             </div>
         </div>
+
+        <button v-if="smallestId !== firstPicture" @click="loadImages">More</button>
 
     </div>
 

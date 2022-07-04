@@ -10,6 +10,8 @@ Vue.createApp({
             // visible: true,
             images: [],
             imageId: null,
+            smallestId: null,
+            firstPicture: null,
             // moods: [
             //     { id: 1, emoji: "😊" },
             //     { id: 2, emoji: "😌" },
@@ -19,7 +21,6 @@ Vue.createApp({
         };
     },
     components: {
-        // "first-component": firstComponent,
         "image-component": imageComponent,
     },
 
@@ -29,13 +30,19 @@ Vue.createApp({
 
         // console.log("my vue app has mounted!");
         // console.log("this: ", this);
-        // console.log("this.images: ", this.images);
+        fetch("/lowestId")
+            .then((resp) => resp.json())
+            .then((data) => {
+                this.firstPicture = data[0].id;
+            });
 
         fetch("/images")
             .then((resp) => resp.json())
             .then((data) => {
                 // console.log("response from /images in app.js: ", data);
                 this.images = data;
+                // console.log("this.images: ", this.images);
+                this.smallestId = this.images[this.images.length - 1].id;
             });
     },
 
@@ -59,12 +66,28 @@ Vue.createApp({
                     return result.json();
                 })
                 .then((data) => {
-                    console.log("data app.js", data);
+                    // console.log("data app.js", data);
                     this.images.unshift(data.newImage);
                     // console.log(this.images);
                 })
                 .catch((err) => {
                     console.log("err in handleSubmit", err);
+                });
+        },
+        loadImages() {
+            fetch("/loadImages/" + this.smallestId)
+                .then((result) => {
+                    return result.json();
+                })
+                .then((data) => {
+                    // console.log(data);
+                    data.forEach((element) => {
+                        this.images.push(element);
+                    });
+                    this.smallestId = this.images[this.images.length - 1].id;
+                })
+                .catch((err) => {
+                    console.log("err in loadImages app.js", err);
                 });
         },
         // selectMood(id) {
