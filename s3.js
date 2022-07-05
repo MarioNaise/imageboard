@@ -38,11 +38,11 @@ module.exports.upload = (req, res, next) => {
 
     promise
         .then(() => {
-            console.log("it worked, our image is in the cloud");
+            // console.log("it worked, our image is in the cloud");
             next();
             fs.unlink(path, () => {});
         })
         .catch((err) => {
-            console.log("something went wring with the cloud upload: ", err);
+            console.log("something went wrong with the cloud upload: ", err);
         });
 };

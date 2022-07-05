@@ -109,7 +109,7 @@ const uploader = multer({
 });
 
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
-    console.log("UPLOAD");
+    // console.log("UPLOAD");
     let newImage;
     // console.log("req.file in server.js: ", req.file);
     db.uploadImage(

@@ -23,7 +23,12 @@ Vue.createApp({
     components: {
         "image-component": imageComponent,
     },
-
+    watch: {
+        imageId() {
+            // couldnt find out how to use this correctly
+            // so i did all the work in the component methods
+        },
+    },
     mounted() {
         // this is the location for us to ask if there are
         // any images to retrieve in our database!
@@ -116,6 +121,14 @@ Vue.createApp({
         closeImage() {
             this.imageId = null;
             history.pushState({}, "", `/`);
+        },
+        previousImage() {
+            this.imageId++;
+            history.pushState({}, "", `/${this.imageId}`);
+        },
+        nextImage() {
+            this.imageId--;
+            history.pushState({}, "", `/${this.imageId}`);
         },
     },
 }).mount("#main");

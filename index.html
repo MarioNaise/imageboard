@@ -15,23 +15,29 @@
         <!-- <first-component></first-component>
         <first-component></first-component> -->
         <!-- <h3 v-for="mood in moods" @click="selectMood(mood.id)">{{mood.id}} | {{mood.emoji}}</h3> -->
-        <h1>I 💕 memedumps</h1>
+        <h1>mid-century | imageboard</h1>
 
         <div id="formContainer">
             <form class="uploadForm" method="post" action="/upload" enctype="multipart/form-data"
             @submit.prevent="handleSubmit">
-                <input name="title" type="text" placeholder="Title" required>
-                <input name="user" type="text" placeholder="User" required>
-                <input name="description" type="text" placeholder="Description" required>
-                <input class="chooseFile" id="image" name="image" type="file" accept="image/*">
+                <div>
+                    <input name="title" type="text" placeholder="Title" required>
+                    <input name="user" type="text" placeholder="User" required>
+                    <input name="description" type="text" placeholder="Description" required>
+                </div>
+                <div>
+                    <input class="chooseFile" id="image" name="image" type="file" accept="image/*">
+                </div>
                 <!-- <label class="chooseFileLabel" for="image">Choose a file</label> -->
-                <button id="submitButton">Upload</button>
+                <section>
+                    <button id="submitButton">Upload</button>
+                </section>
             </form>
         </div>
 
     <h2>Latest Images:</h2>
 
-    <image-component v-if="imageId" v-bind:image-prop="imageId" @close="closeImage"></image-component>
+    <image-component v-if="imageId" v-bind:image-prop="imageId" @close="closeImage" @next="nextImage" @previous="previousImage"></image-component>
 
     <!-- this container is for our vue instance -->
     
@@ -47,7 +53,7 @@
                 {{city.name}} is in {{city.country}}
             </li>
         </ul> -->
-        <div id="flexImages">
+        <div id="gridImages">
             <div class="images" v-if="images.length" v-for="image in images"
             @click="showImage(image.id)">
                 <img :key="image.id" :src="image.url" alt="image">

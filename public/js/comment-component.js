@@ -57,7 +57,7 @@ const commentComponent = {
                         <div class="comment" v-for="comment in comments">
                             <h3>{{comment.comment}}</h3>
                             <p class="time">Added by {{comment.username}} on {{comment.created_at}}</p>
-                            <p>____________________________________________________________</p>
+                            <p class="commentEnd">____________________________________________________________</p>
                         </div>
                     </div>
                 </div>`,
