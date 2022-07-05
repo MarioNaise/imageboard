@@ -50,7 +50,7 @@ button {
 }
 #submitButton:hover {
     background-color: #dad7d7;
-    cursor: default;
+    cursor: pointer;
 }
 
 .chooseFile {
@@ -104,26 +104,29 @@ img {
 #overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: scroll;
 }
 
 #modal {
+    height: 100vh;
     position: relative;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 20%;
     margin: 0;
+    border-radius: 5px;
 }
 
 #modal img {
-    width: 400px;
+    width: 350px;
     height: auto;
     margin: 20px;
 }
@@ -134,16 +137,18 @@ img {
 #modal h4,
 #modal div {
     align-self: center;
-    background-color: black;
+    background-color: transparent;
     margin: 0;
 }
 
 #modal form {
-    background-color: black;
+    background-color: transparent;
 }
 
 #modal input {
+    border: none;
     padding: 5px;
+    border-radius: 20px;
 }
 
 .time {
@@ -151,7 +156,7 @@ img {
 }
 
 #closeImage {
-    background-color: black;
+    background-color: transparent;
     position: absolute;
     top: 20px;
     left: 20px;
@@ -159,11 +164,26 @@ img {
 }
 
 .material-symbols-outlined {
-    background-color: black;
+    background-color: transparent;
 }
 
 /***************** COMMENTS *********************/
 
-.comments {
-    background-color: rgb(252, 252, 252);
+#commentContainer {
+    width: 500px;
+}
+
+#comments {
+    color: black;
+    width: 100%;
+    height: 100px;
+    overflow: scroll;
+    border-radius: 3px;
+}
+
+#comments h3,
+#comments p {
+    padding: 10px;
+    max-width: 500px;
+    background-color: white;
 }

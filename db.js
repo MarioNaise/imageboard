@@ -62,7 +62,8 @@ module.exports.insertComment = (id, username, comment) => {
 module.exports.getComments = (id) => {
     return db.query(
         `SELECT * FROM comments
-        WHERE img_id = $1;`,
+        WHERE img_id = $1
+        ORDER BY id DESC;`,
         [id]
     );
 };

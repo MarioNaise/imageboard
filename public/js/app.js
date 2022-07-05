@@ -30,6 +30,17 @@ Vue.createApp({
 
         // console.log("my vue app has mounted!");
         // console.log("this: ", this);
+
+        if (parseInt(location.pathname.slice(1))) {
+            this.imageId = location.pathname.slice(1);
+        } else {
+            history.replaceState({}, "", `/`);
+        }
+
+        window.addEventListener("popstate", () => {
+            this.imageId = location.pathname.slice(1);
+        });
+
         fetch("/lowestId")
             .then((resp) => resp.json())
             .then((data) => {
@@ -100,9 +111,11 @@ Vue.createApp({
         showImage(id) {
             // console.log(id);
             this.imageId = id;
+            history.pushState({}, "", `/${id}`);
         },
         closeImage() {
             this.imageId = null;
+            history.pushState({}, "", `/`);
         },
     },
 }).mount("#main");

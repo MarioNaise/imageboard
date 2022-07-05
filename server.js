@@ -36,15 +36,19 @@ app.get("/images", (req, res) => {
 app.get("/images/:imageId", (req, res) => {
     db.getSingleImage(req.params.imageId)
         .then((result) => {
-            res.json(result.rows[0]);
+            if (result.rows[0]) {
+                res.json(result.rows[0]);
+            } else {
+                res.json({});
+            }
         })
         .catch((err) => {
             console.log("err in getSingleImage: ", err);
         });
 });
 
-app.get("/loadImages/:id", (req, res) => {
-    db.loadImages(req.params.id)
+app.get("/loadImages/:lastId", (req, res) => {
+    db.loadImages(req.params.lastId)
         .then((result) => {
             // console.log(result.rows);
             res.json(result.rows);

@@ -35,11 +35,12 @@ const imageComponent = {
                         <div id="closeImage"  @click="closeImage">
                             <span class="material-symbols-outlined">close</span>
                         </div>
-                        <img :src="this.currentImage.url" alt="currentImage">
-                        <h2>{{this.currentImage.title}}</h2>
-                        <p>{{this.currentImage.description}}</p>
-                        <p class="time">Uploaded by {{this.currentImage.username}} on {{this.currentImage.created_at}}</p>
-                        <comment-component :image-prop="imageProp"></comment-component>
+                        <img v-if="this.currentImage.url" :src="this.currentImage.url" alt="currentImage">
+                        <h2 v-else="!this.currentImage.url">Image not found.</h2>
+                        <h2 v-if="this.currentImage.url" >{{this.currentImage.title}}</h2>
+                        <p v-if="this.currentImage.url" >{{this.currentImage.description}}</p>
+                        <p v-if="this.currentImage.url" class="time">Uploaded by {{this.currentImage.username}} on {{this.currentImage.created_at}}</p>
+                        <comment-component v-if="this.currentImage.url" :image-prop="imageProp"></comment-component>
                     </div>
                 </div>`,
 };

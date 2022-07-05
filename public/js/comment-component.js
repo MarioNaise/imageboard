@@ -47,14 +47,19 @@ const commentComponent = {
     },
     template: `<form method="post" action="/insertComment">
                     <h3>Add a comment:</h3>
-                    <input v-model="username" name="username" placeholder="Username" required>
-                    <input v-model="comment" name="comment" placeholder="Comment" required>
+                    <input v-model="username" name="username" placeholder="Username">
+                    <input v-model="comment" name="comment" placeholder="Comment">
                     <button @click.prevent="send" type="submit">Submit</button>
                 </form>
-
-                <div class="comments" v-for="comment in comments">
-                    <h4>{{comment.username}}: {{comment.comment}}</h4>
-                    <p class="time">{{comment.created_at}}</p>
+                <div v-if="comments.length" id="commentContainer">
+                    <h3>Latest comments:</h3>
+                    <div id="comments">
+                        <div class="comment" v-for="comment in comments">
+                            <h3>{{comment.comment}}</h3>
+                            <p class="time">Added by {{comment.username}} on {{comment.created_at}}</p>
+                            <p>____________________________________________________________</p>
+                        </div>
+                    </div>
                 </div>`,
 };
 
