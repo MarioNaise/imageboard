@@ -40,7 +40,7 @@ module.exports.loadImages = (id) => {
                     FROM images
                     WHERE id < $1
                     ORDER BY id DESC
-                    LIMIT 10;`,
+                    LIMIT 9;`,
         [id]
     );
 };
