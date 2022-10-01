@@ -185,21 +185,6 @@ button {
     cursor: pointer;
 }
 
-#next {
-    background-color: transparent;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    cursor: pointer;
-}
-
-#previous {
-    background-color: transparent;
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    cursor: pointer;
-}
 
 .material-symbols-outlined {
     background-color: transparent;

@@ -23,16 +23,8 @@ Vue.createApp({
     components: {
         "image-component": imageComponent,
     },
-    watch: {
-        imageId() {
-            // couldnt find out how to use this correctly
-            // so i did all the work in the component methods
-        },
-    },
-    mounted() {
-        // this is the location for us to ask if there are
-        // any images to retrieve in our database!
 
+    mounted() {
         // console.log("my vue app has mounted!");
         // console.log("this: ", this);
 
@@ -106,13 +98,6 @@ Vue.createApp({
                     console.log("err in loadImages app.js", err);
                 });
         },
-        // selectMood(id) {
-        //     console.log("id clicked on: ", id);
-        //     this.moodSelected = id;
-        // },
-        // closeFirstComponent() {
-        //     console.log("the component would like have you made disappear");
-        // },
         showImage(id) {
             // console.log(id);
             this.imageId = id;
@@ -121,14 +106,6 @@ Vue.createApp({
         closeImage() {
             this.imageId = null;
             history.pushState({}, "", `/`);
-        },
-        previousImage() {
-            this.imageId++;
-            history.pushState({}, "", `/${this.imageId}`);
-        },
-        nextImage() {
-            this.imageId--;
-            history.pushState({}, "", `/${this.imageId}`);
         },
     },
 }).mount("#main");

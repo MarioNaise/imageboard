@@ -144,7 +144,7 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
 app.post("/insertComment", (req, res) => {
     db.insertComment(req.body.image_id, req.body.username, req.body.comment)
         .then((result) => {
-            newComment = result.rows[0];
+            const newComment = result.rows[0];
             res.json({
                 newComment,
             });
