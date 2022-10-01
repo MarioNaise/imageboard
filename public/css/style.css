@@ -210,3 +210,8 @@ button {
     max-width: 500px;
     background-color: white;
 }
+
+hr {
+    background-color: white;
+    margin: 0;
+}

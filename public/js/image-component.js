@@ -42,7 +42,7 @@ const imageComponent = {
                         </div>
                         <h2 v-if="this.currentImage.url" >{{this.currentImage.title}}</h2>
                         <p v-if="this.currentImage.url" >{{this.currentImage.description}}</p>
-                        <p v-if="this.currentImage.url" class="time">Uploaded by {{this.currentImage.username}} on {{this.currentImage.created_at}}</p>
+                        <p v-if="this.currentImage.url" class="time">Uploaded by {{this.currentImage.username}} on {{new Date(this.currentImage.created_at).toLocaleString("en-US", {dateStyle: "full"})}}</p>
                         <comment-component v-if="this.currentImage.url" :image-prop="imageProp"></comment-component>
                     </div>
                 </div>`,
